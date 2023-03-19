@@ -4,6 +4,7 @@
 	import { preloadCode } from '$app/navigation';
 	import { dev } from '$app/environment';
 
+	import { App } from 'konsta/svelte';
 
 	/* Call Ionic's setup routine */
 	setupIonicBase();
@@ -16,6 +17,16 @@
 
 	// Prefetch all code when not in dev
 	if (!dev) preloadCode();
+
+	// Para o konstaui, porque o Ionic já determina o modo escuro a partir de prefers-color-scheme automaticamente (theme/variables.css)
+	// if (
+	// 	localStorage.theme === 'dark' ||
+	// 	(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+	// ) {
+	// 	document.documentElement.classList.add('dark');
+	// } else {
+	// 	document.documentElement.classList.remove('dark');
+	// }
 
 	/*
 		This part - import 'ionic-svelte/components/all'; -  loads all components at once.
@@ -50,6 +61,8 @@
 	*/
 </script>
 
-<ion-app>
-	<slot />
-</ion-app>
+<App theme="material">
+	<ion-app>
+		<slot />
+	</ion-app>
+</App>
